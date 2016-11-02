@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Question 4</title>
+</head>
+<body>
+
+<script src="jquery-3.1.1.js"></script>
+<script>
+  // Create the CommentList constructor function with a 'fetch' method on the prototype.
+  // The fetch method will make an AJAX request to http://itp-api.herokuapp.com/api/comments
+  // and resolve with a plain array of objects containing only the id and the body attribute.
+  // i.e. [ { id: 1, body: 'First!' }, ... ]
+  // Dont forget to run a local server when building this.
+  // cd into this directory and run php -S localhost:8000 and navigate to localhost:8000/question-4.html
+
+  function CommentList() {}
+
+  CommentList.prototype.fetch = function() {
+    var promise = $.ajax({
+      url: 'http://itp-api.herokuapp.com/api/comments',
+      type: 'get'
+    }).then(function(response) {
+      return response.data;
+    }).then(function(comments) {
+      return comments.map(function(comment) {
+        return {
+          'id': comment.id,
+          'body': comment.attributes.body
+        }
+      });
+    });
+
+    return promise;
+  };
+
+  var commentList = new CommentList();
+
+  commentList.fetch().then(function(comments) {
+    console.log(comments);
+    // comments should look like [ { id: 1, body: 'First!' }, ... ]
+  });
+</script>
+
+</body>
+</html>

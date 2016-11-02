@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Question 1</title>
+</head>
+<body>
+<button onclick="getUsers()">get users</button>
+<!-- <script type="text/javascript" src="question-1.js">getUsers()</script> -->
+<div id="user-list"></div>
+
+<script src="jquery-3.1.1.js"></script>
+<script src="question-1.js"></script>
+<script src="handlebars-v4.0.5.js"></script>
+
+<script type="template/handlebars" id="user-list-template">
+  {{#each user}}
+    <div class="user">
+      <p>fullname: {{firstName}} {{lastName}}</p>
+      {{#each openSourceProjects}}
+        <li>{{name}}</li>
+      {{/each}}
+      {{#if data.isAdmin}}
+        <p>Admin</p>
+      {{else}}
+        <p>Not Admin</p>
+      {{/if}}
+  {{/each}}
+</script>
+
+</body>
+</html>
